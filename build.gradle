@@ -6,29 +6,46 @@
  * User Manual available at https://docs.gradle.org/6.0/userguide/tutorial_java_projects.html
  */
 
-plugins {
-    // Apply the java plugin to add support for Java
-    id 'java'
+apply plugin: 'java'
+apply plugin: 'war' 
+apply plugin: 'com.bmuschko.tomcat'
 
-    // Apply the application plugin to add support for building a CLI application.
-    id 'application'
-}
 
+
+ 
 repositories {
-    // Use jcenter for resolving dependencies.
-    // You can declare any Maven/Ivy/file repository here.
+    mavenCentral()
     jcenter()
 }
-
-dependencies {
-    // This dependency is used by the application.
-    implementation 'com.google.guava:guava:28.0-jre'
-
-    // Use JUnit test framework
-    testImplementation 'junit:junit:4.12'
+ //
+dependencies {   
+  
+    
+   
+    providedCompile "javax.servlet:javax.servlet-api:3.1.0"      
+     testImplementation 'junit:junit:4.12'
+    // https://mvnrepository.com/artifact/com.microsoft.sqlserver/sqljdbc4
+	compile group: 'com.microsoft.sqlserver', name: 'sqljdbc4', version: '4.0'
+	compile group: 'javax.servlet', name: 'jstl', version: '1.2'
 }
-
-application {
-    // Define the main class for the application.
-    mainClassName = 'ClinicalEngineering.App'
+ 
+ 
+dependencies {
+    def tomcatVersion = '7.0.59'
+    
+    tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+           "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
+           "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
+}
+ 
+ 
+buildscript {
+ 
+    repositories {
+        mavenCentral()
+    }
+ 
+    dependencies {
+        classpath 'com.bmuschko:gradle-tomcat-plugin:2.2.2'
+    }
 }
