@@ -4,6 +4,7 @@ pageEncoding="ISO-8859-1"%>
 <%@ page import="com.lvhn.sqlServer.*" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="javax.servlet.*" %>
+<%@ page import="com.lvhn.Configproperties" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -200,7 +201,8 @@ var xmlhttp;
 <TD valign="top" align="left" bgcolor="#eeeeee" width="50%"><font size="1" face=verdana color="#000000">
 
 <%
-
+		Configproperties configNew = new Configproperties();
+		String driverName2 = configNew.getPropertiesValue(driverName);
 Connection con = null;
 PreparedStatement ps = null;
 try
